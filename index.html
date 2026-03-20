@@ -269,33 +269,7 @@
 
     .btn-ghost:hover { border-color: rgba(232,255,71,0.4); color: var(--white); }
 
-    .hero-scroll {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      font-size: 8px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
 
-    .hero-scroll::after {
-      content: '';
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--muted), transparent);
-      animation: scrollDrop 1.8s ease-in-out infinite;
-    }
-
-    @keyframes scrollDrop {
-      0%, 100% { transform: scaleY(1); opacity: 0.5; }
-      50% { transform: scaleY(0.6); opacity: 1; }
-    }
 
     /* ─── SECTIONS ────────────────────────────────────── */
     section {
@@ -815,7 +789,7 @@
       <a class="btn-ghost" href="#work">See the Work</a>
     </div>
 
-    <div class="hero-scroll">scroll</div>
+
   </div>
 
   <!-- SERVICES -->
