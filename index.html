@@ -3,1115 +3,205 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Power-On Media Group — AI-Native Builder</title>
-  <meta name="description" content="Marc Beaty builds AI-powered workflows, websites, web apps, and native apps. I build the thing. You run the business." />
+  <title>Power-On Media Group — AI Skunkworks Studio</title>
+  <meta name="description" content="Power-On Media Group is Marc Beaty's AI-native skunkworks studio for websites, apps, workflows, live streaming systems, and shipped digital products." />
+  <meta property="og:title" content="Power-On Media Group — AI Skunkworks Studio" />
+  <meta property="og:description" content="One senior operator plus an AI agent stack. Strategy, design, code, automation, video, and launch — shipped fast." />
+  <meta name="theme-color" content="#060606" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── TOKENS ─────────────────────────────────────── */
     :root {
-      --black:   #060606;
-      --surface: #0e0e0e;
-      --border:  #1e1e1e;
-      --muted:   #444;
-      --dim:     #888;
-      --white:   #f2f2f2;
-      --accent:  #e8ff47;
-      --accent2: rgba(232,255,71,0.12);
+      --black:#060606;
+      --black-2:#0b0b0b;
+      --panel:#10100f;
+      --panel-2:#151611;
+      --line:rgba(232,255,71,.16);
+      --line-soft:rgba(255,255,255,.09);
+      --text:#f5f5ef;
+      --muted:#9a9a91;
+      --dim:#66675f;
+      --accent:#e8ff47;
+      --accent-hot:#d7ff00;
+      --amber:#ffb84d;
+      --cyan:#7cf7ff;
+      --shadow:0 30px 120px rgba(232,255,71,.13);
+      --font-display:'Barlow Condensed',Impact,sans-serif;
+      --font-mono:'DM Mono',monospace;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:var(--black)}
+    body{min-height:100vh;background:var(--black);color:var(--text);font-family:var(--font-mono);overflow-x:hidden}
+    a{color:inherit}
+    ::selection{background:var(--accent);color:var(--black)}
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'DM Mono', monospace;
-      overflow-x: hidden;
-    }
-
-    /* noise overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      background-size: 200px;
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    /* ─── NAV ─────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(to bottom, rgba(6,6,6,0.95) 0%, transparent 100%);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .nav-logo-icon {
-      width: 28px;
-      height: 28px;
-    }
-
-    .nav-logo-icon path { fill: var(--accent); }
-
-    .nav-wordmark {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 15px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .nav-wordmark span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--white); }
-
-    .nav-cta {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      padding: 10px 22px;
-      background: var(--accent);
-      color: var(--black);
-      text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
-
-    .nav-cta:hover { opacity: 0.85; }
-
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-    }
-
-    /* ─── HERO ────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 120px 24px 80px;
-      text-align: center;
-      position: relative;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      padding: 6px 16px;
-      font-size: 9px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 40px;
-    }
-
-    .hero-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.7); }
-    }
-
-    .logo-wrap {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 40px;
-      animation: logoIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes logoIn {
-      0%   { opacity: 0; transform: scale(0.5) rotate(-30deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
-
-    .pulse-rings {
-      position: absolute;
-      left: 50%; top: 50%;
-      width: calc(100% + 120px);
-      height: calc(100% + 120px);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      overflow: visible;
-    }
-
-    .pulse-rings circle {
-      fill: none;
-      stroke: var(--accent);
-      opacity: 0;
-      transform-box: fill-box;
-      transform-origin: 50% 50%;
-      animation: pulseScale 3.5s ease-out infinite;
-    }
-
-    .pulse-rings circle:nth-child(2) { animation-delay: 1.75s; }
-
-    @keyframes pulseScale {
-      0%   { transform: scale(1);   opacity: 0.4; stroke-width: 1.2; }
-      100% { transform: scale(1.9); opacity: 0;   stroke-width: 0.2; }
-    }
-
-    .icon-svg { width: 100%; height: 100%; position: relative; z-index: 1; }
-
-    .icon-shape {
-      fill: var(--accent);
-      filter:
-        drop-shadow(0 0 6px rgba(232,255,71,0.9))
-        drop-shadow(0 0 18px rgba(232,255,71,0.4))
-        drop-shadow(0 0 40px rgba(232,255,71,0.15));
-    }
-
-    .hero-headline {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(44px, 9vw, 88px);
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      max-width: 900px;
-      margin-bottom: 28px;
-    }
-
-    .hero-headline .accent { color: var(--accent); }
-
-    .hero-sub {
-      font-size: clamp(11px, 1.5vw, 13px);
-      letter-spacing: 0.12em;
-      color: var(--dim);
-      max-width: 480px;
-      line-height: 1.9;
-      margin-bottom: 52px;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--black);
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      padding: 16px 36px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .btn-primary:hover { opacity: 0.85; }
-
-    .btn-ghost {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--dim);
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      padding: 16px 36px;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .btn-ghost:hover { border-color: rgba(232,255,71,0.4); color: var(--white); }
-
-
-
-    /* ─── SECTIONS ────────────────────────────────────── */
-    section {
-      padding: 100px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 9px;
-      letter-spacing: 0.36em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(32px, 5vw, 56px);
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 24px;
-    }
-
-    .section-body {
-      font-size: 12px;
-      line-height: 2;
-      color: var(--dim);
-      max-width: 600px;
-    }
-
-    /* ─── WHAT I BUILD ────────────────────────────────── */
-    #services {
-      border-top: 1px solid var(--border);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      margin-top: 60px;
-      border: 1px solid var(--border);
-    }
-
-    .service-card {
-      background: var(--black);
-      padding: 36px 32px;
-      transition: background 0.2s;
-    }
-
-    .service-card:hover {
-      background: var(--surface);
-    }
-
-    .service-icon {
-      font-size: 22px;
-      margin-bottom: 20px;
-    }
-
-    .service-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 12px;
-    }
-
-    .service-desc {
-      font-size: 11px;
-      line-height: 1.9;
-      color: var(--dim);
-    }
-
-    /* ─── HOW IT WORKS ────────────────────────────────── */
-    #how {
-      border-top: 1px solid var(--border);
+    body:before{
+      content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;
+      background:
+        radial-gradient(circle at 12% 10%,rgba(232,255,71,.13),transparent 28%),
+        radial-gradient(circle at 84% 20%,rgba(124,247,255,.08),transparent 26%),
+        radial-gradient(circle at 50% 96%,rgba(232,255,71,.09),transparent 28%),
+        #060606;
     }
-
-    .how-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      margin-top: 60px;
-      align-items: start;
-    }
-
-    @media (max-width: 768px) {
-      .how-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    .how-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .how-step {
-      display: flex;
-      gap: 24px;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .how-step:first-child { padding-top: 0; }
-
-    .step-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 36px;
-      color: var(--accent);
-      line-height: 1;
-      min-width: 36px;
-    }
-
-    .step-content {}
-
-    .step-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .step-desc {
-      font-size: 11px;
-      line-height: 1.9;
-      color: var(--dim);
-    }
-
-    .how-aside {
-      border: 1px solid var(--border);
-      padding: 36px;
-      background: var(--surface);
-      position: sticky;
-      top: 100px;
-    }
-
-    .aside-label {
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .stack-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .stack-list li {
-      font-size: 11px;
-      color: var(--dim);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .stack-list li::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    /* ─── PORTFOLIO ───────────────────────────────────── */
-    #work {
-      border-top: 1px solid var(--border);
-    }
-
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 60px;
-    }
-
-    .work-card {
-      background: var(--black);
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      transition: background 0.2s;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .work-card:hover { background: var(--surface); }
-
-    .work-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .work-type {
-      font-size: 8.5px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(232,255,71,0.25);
-      padding: 4px 10px;
-    }
-
-    .work-arrow {
-      color: var(--muted);
-      font-size: 14px;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .work-card:hover .work-arrow { color: var(--accent); transform: translate(3px, -3px); }
-
-    .work-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .work-desc {
-      font-size: 11px;
-      line-height: 1.85;
-      color: var(--dim);
+    body:after{
+      content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.55;mix-blend-mode:screen;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
     }
 
-    .work-url {
-      font-size: 10px;
-      font-family: 'DM Mono', monospace;
-      color: var(--accent);
-      margin-top: 6px;
-      opacity: 0.85;
-    }
-
-    .work-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .work-tag {
-      font-size: 8.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 3px 9px;
-    }
-
-    /* ─── CONTACT ─────────────────────────────────────── */
-    #contact {
-      border-top: 1px solid var(--border);
-    }
-
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      margin-top: 60px;
-      align-items: start;
-    }
-
-    @media (max-width: 768px) {
-      .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    .contact-info {}
-
-    .contact-blurb {
-      font-size: 12px;
-      line-height: 2;
-      color: var(--dim);
-      margin-bottom: 40px;
-    }
-
-    .contact-detail {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .contact-item {
-      display: flex;
-      gap: 14px;
-      font-size: 11px;
-    }
-
-    .contact-item-label {
-      color: var(--accent);
-      min-width: 70px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 9px;
-      margin-top: 1px;
-    }
-
-    .contact-item-val {
-      color: var(--dim);
-    }
-
-    .contact-item-val a {
-      color: var(--dim);
-      text-decoration: none;
-    }
-
-    .contact-item-val a:hover { color: var(--white); }
-
-    /* form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      font-size: 9px;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 12px 16px 4px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-bottom: none;
-    }
-
-    input, textarea, select {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top: none;
-      color: var(--white);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      padding: 12px 16px;
-      outline: none;
-      width: 100%;
-      transition: border-color 0.2s;
-      appearance: none;
-    }
+    .grid-bg{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.45;background-image:linear-gradient(rgba(232,255,71,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(232,255,71,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,black 0%,transparent 78%)}
+    .cursor-glow{position:fixed;width:420px;height:420px;border-radius:999px;background:radial-gradient(circle,rgba(232,255,71,.13),transparent 62%);pointer-events:none;z-index:-1;transform:translate(-50%,-50%);filter:blur(8px);opacity:.8}
 
-    input:focus, textarea:focus, select:focus {
-      border-color: rgba(232,255,71,0.4);
-    }
+    nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:20px 34px;background:linear-gradient(to bottom,rgba(6,6,6,.9),rgba(6,6,6,.35),transparent);backdrop-filter:blur(14px)}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand svg{width:28px;height:28px;filter:drop-shadow(0 0 18px rgba(232,255,71,.45))}.icon-shape{fill:var(--accent)}
+    .wordmark{font-family:var(--font-display);font-size:15px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}.wordmark span{color:var(--accent)}
+    .nav-links{display:flex;align-items:center;gap:28px;list-style:none}.nav-links a{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none}.nav-links a:hover{color:var(--accent)}
+    .nav-cta,.btn-primary{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--accent);background:var(--accent);color:var(--black);font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding:13px 20px;box-shadow:0 0 28px rgba(232,255,71,.15);transition:.2s}.nav-cta:hover,.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(232,255,71,.24)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-soft);color:var(--text);font-size:10px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding:15px 22px;background:rgba(255,255,255,.03);backdrop-filter:blur(10px)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 
-    textarea { resize: vertical; min-height: 120px; }
+    main{overflow:hidden}.section{max-width:1220px;margin:0 auto;padding:120px 28px;border-top:1px solid var(--line-soft);position:relative}.section-kicker{display:flex;align-items:center;gap:12px;color:var(--accent);font-size:10px;letter-spacing:.34em;text-transform:uppercase;margin-bottom:22px}.section-kicker:before{content:"";width:42px;height:1px;background:var(--accent)}
+    h1,h2,h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing:-.015em}h2{font-size:clamp(44px,7vw,92px);line-height:.88;max-width:950px}p{color:var(--muted);line-height:1.85;font-size:13px}.lead{font-size:15px;max-width:690px;color:#c8c9c0}.accent{color:var(--accent)}
 
-    .form-submit {
-      background: var(--accent);
-      color: var(--black);
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      padding: 18px 36px;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      margin-top: 2px;
-      text-align: center;
-    }
+    .hero{min-height:100svh;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:48px;align-items:center;padding:145px 48px 86px;max-width:1360px;margin:0 auto;position:relative}.hero-copy{position:relative;z-index:2}.eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:rgba(232,255,71,.05);padding:8px 13px;margin-bottom:28px;color:var(--accent);font-size:10px;letter-spacing:.28em;text-transform:uppercase}.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent);animation:pulse 1.8s infinite}@keyframes pulse{50%{opacity:.35;transform:scale(.65)}}
+    h1{font-size:clamp(58px,10.2vw,158px);line-height:.78;max-width:900px;text-wrap:balance}.hero-sub{margin-top:30px;max-width:650px;font-size:15px;color:#c5c7bc}.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}.proof-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:50px;max-width:760px;background:var(--line-soft);border:1px solid var(--line-soft)}.proof{background:rgba(11,11,11,.88);padding:18px}.proof b{display:block;font-family:var(--font-display);font-size:31px;color:var(--accent);line-height:1}.proof span{display:block;margin-top:6px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.18em;line-height:1.5}
 
-    .form-submit:hover { opacity: 0.85; }
+    .command-deck{position:relative;min-height:560px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(232,255,71,.08),rgba(255,255,255,.025) 28%,rgba(0,0,0,.3));box-shadow:var(--shadow);overflow:hidden}.command-deck:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 0 94%,rgba(232,255,71,.12) 95%),linear-gradient(90deg,transparent 0 94%,rgba(232,255,71,.09) 95%);background-size:34px 34px;opacity:.45}.deck-top{position:relative;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);background:rgba(6,6,6,.55)}.window-dots{display:flex;gap:7px}.window-dots i{width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:.75}.deck-label{font-size:9px;color:var(--muted);letter-spacing:.26em;text-transform:uppercase}.orb{position:absolute;inset:auto 48px 88px auto;width:230px;height:230px;border-radius:50%;border:1px solid rgba(232,255,71,.25);box-shadow:inset 0 0 44px rgba(232,255,71,.12),0 0 80px rgba(232,255,71,.17);display:grid;place-items:center;animation:float 5s ease-in-out infinite}.orb svg{width:120px;height:120px;filter:drop-shadow(0 0 22px rgba(232,255,71,.8))}@keyframes float{50%{transform:translateY(-16px)}}
+    .agent-list{position:relative;padding:28px;display:grid;gap:12px;max-width:410px}.agent-row{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;border:1px solid var(--line-soft);background:rgba(6,6,6,.62);padding:13px 14px;backdrop-filter:blur(10px);transform:translateX(var(--x,0))}.agent-row:nth-child(2){--x:34px}.agent-row:nth-child(3){--x:9px}.agent-row:nth-child(4){--x:50px}.agent-row:nth-child(5){--x:22px}.agent-name{font-family:var(--font-display);font-size:19px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.agent-role{font-size:10px;color:var(--muted);line-height:1.4}.status{font-size:8px;color:var(--accent);letter-spacing:.2em;text-transform:uppercase}.ticker{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--line);background:var(--accent);color:var(--black);overflow:hidden;white-space:nowrap;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:12px 0}.ticker span{display:inline-block;padding-left:100%;animation:marquee 20s linear infinite}@keyframes marquee{to{transform:translateX(-100%)}}
 
-    .form-note {
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-top: 12px;
-      text-align: center;
-    }
+    .manifesto{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}.big-quote{font-family:var(--font-display);font-size:clamp(42px,6vw,82px);line-height:.9;text-transform:uppercase}.manifesto-card{border:1px solid var(--line);background:linear-gradient(135deg,rgba(232,255,71,.08),rgba(255,255,255,.025));padding:34px}.contrast{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:30px}.contrast-card{background:var(--black-2);padding:28px}.contrast-card.good{background:linear-gradient(160deg,rgba(232,255,71,.11),rgba(10,10,10,.96))}.contrast-card h3{font-size:30px;margin-bottom:18px}.contrast-card ul{list-style:none;display:grid;gap:12px}.contrast-card li{font-size:12px;color:var(--muted);line-height:1.65}.contrast-card.good li{color:#d8dacd}.contrast-card li:before{content:"— ";color:var(--accent)}
 
-    /* success state */
-    .form-success {
-      display: none;
-      border: 1px solid rgba(232,255,71,0.3);
-      padding: 36px;
-      text-align: center;
-    }
+    .system-map{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:52px}.node{min-height:150px;border:1px solid var(--line-soft);background:rgba(255,255,255,.025);padding:18px;position:relative;overflow:hidden}.node:before{content:"";position:absolute;inset:-80px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(232,255,71,.14),transparent 38%);opacity:0;transition:.2s}.node:hover:before{opacity:1}.node-num{color:var(--accent);font-size:10px;letter-spacing:.2em}.node h3{font-size:25px;margin-top:26px}.node p{font-size:11px;margin-top:8px}.node.wide{grid-column:span 2}.node.tall{grid-row:span 2}.node.feature{background:linear-gradient(145deg,rgba(232,255,71,.1),rgba(255,255,255,.025));border-color:var(--line)}
 
-    .form-success.visible { display: block; }
+    .work-list{display:grid;gap:18px;margin-top:56px}.case{display:grid;grid-template-columns:1.05fr .95fr;gap:1px;border:1px solid var(--line-soft);background:var(--line-soft);text-decoration:none;color:inherit}.case-visual{min-height:340px;background:radial-gradient(circle at 22% 20%,rgba(232,255,71,.17),transparent 26%),linear-gradient(135deg,#10110c,#070707);padding:26px;position:relative;overflow:hidden}.case-visual:after{content:"";position:absolute;inset:24px;border:1px solid rgba(232,255,71,.15);background-image:linear-gradient(rgba(232,255,71,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(232,255,71,.07) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,black,transparent)}.mock-title{position:relative;z-index:2;font-family:var(--font-display);font-size:54px;line-height:.9;text-transform:uppercase;max-width:440px}.mock-meta{position:absolute;z-index:2;left:26px;bottom:26px;display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid rgba(232,255,71,.24);background:rgba(6,6,6,.55);color:var(--accent);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:6px 9px}.case-copy{background:var(--black-2);padding:34px;display:flex;flex-direction:column;justify-content:space-between}.case-type{font-size:10px;color:var(--accent);letter-spacing:.26em;text-transform:uppercase}.case h3{font-size:48px;margin:18px 0 12px}.case p{max-width:520px}.case-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);margin-top:30px}.fact{background:#090909;padding:13px}.fact b{display:block;color:var(--text);font-size:12px}.fact span{display:block;color:var(--dim);font-size:9px;text-transform:uppercase;letter-spacing:.14em;margin-top:5px}.case:hover .mock-title{color:var(--accent)}
 
-    .form-success p {
-      font-size: 12px;
-      color: var(--dim);
-      line-height: 2;
-    }
+    .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:54px}.offer{background:var(--black-2);padding:30px;min-height:270px}.offer h3{font-size:34px}.offer p{font-size:12px;margin-top:14px}.offer ul{list-style:none;display:grid;gap:10px;margin-top:24px}.offer li{font-size:11px;color:var(--muted);line-height:1.55}.offer li:before{content:"↳ ";color:var(--accent)}
 
-    .form-success strong {
-      display: block;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:52px}.step{background:var(--black-2);padding:26px}.step b{font-family:var(--font-display);font-size:48px;color:var(--accent)}.step h3{font-size:28px;margin:18px 0 10px}.step p{font-size:11px}
 
-    /* ─── FOOTER ──────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      max-width: none;
-    }
+    .contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:start}.contact-panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(232,255,71,.08),rgba(255,255,255,.025));padding:32px}.contact-panel h2{font-size:clamp(48px,7vw,86px)}form{display:grid;gap:16px}.field{display:grid;gap:8px}label{font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--accent)}input,textarea,select{width:100%;background:rgba(0,0,0,.38);border:1px solid var(--line-soft);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:15px 14px;outline:none}textarea{min-height:150px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,255,71,.08)}.form-submit{cursor:pointer;border:none;background:var(--accent);color:var(--black);font-family:var(--font-mono);font-weight:600;letter-spacing:.22em;text-transform:uppercase;padding:16px}.note{font-size:11px;color:var(--dim)}.success{display:none;border:1px solid var(--accent);padding:18px;color:var(--accent);font-size:12px}.success.visible{display:block}
 
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--dim); }
+    footer{border-top:1px solid var(--line-soft);padding:34px;display:flex;justify-content:space-between;gap:20px;color:var(--dim);font-size:10px;letter-spacing:.14em;text-transform:uppercase}.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
 
-    @media (max-width: 480px) {
-      footer { flex-direction: column; gap: 12px; text-align: center; }
-      section { padding: 70px 20px; }
-    }
+    @media(max-width:980px){.hero,.manifesto,.case,.contact{grid-template-columns:1fr}.command-deck{min-height:520px}.system-map{grid-template-columns:repeat(2,1fr)}.node.wide{grid-column:span 1}.offers,.process{grid-template-columns:1fr 1fr}.proof-strip{grid-template-columns:1fr}.nav-links{display:none}}
+    @media(max-width:640px){nav{padding:14px 16px}.wordmark{font-size:12px;letter-spacing:.16em}.nav-cta{display:inline-flex;font-size:9px;padding:10px 12px;letter-spacing:.14em}.hero{padding:108px 18px 58px;gap:30px}.section{padding:84px 18px}h1{font-size:56px;line-height:.84}.hero-sub{font-size:13px;margin-top:24px}.proof{padding:14px}.command-deck{min-height:470px}.agent-list{padding:18px;gap:10px}.agent-row{grid-template-columns:58px 1fr;transform:none}.agent-name{font-size:17px}.agent-role{font-size:9px}.status{display:none}.orb{right:22px;bottom:58px;width:132px;height:132px;opacity:.72}.orb svg{width:82px;height:82px}.ticker{font-size:8px;padding:9px 0}.contrast,.offers,.process,.system-map{grid-template-columns:1fr}.case-visual{min-height:280px}.case h3{font-size:38px}.case-facts{grid-template-columns:1fr}footer{flex-direction:column}.hero-actions a{width:100%;justify-content:center}}
   </style>
 </head>
-
 <body>
+  <div class="grid-bg"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-  <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#top">
-      <svg class="nav-logo-icon" viewBox="0 0 952.5 952.5">
-        <path class="icon-shape" d="M162.45,822.5c40.7,40.699,88.2,72.699,141,95.1c54.8,23.201,112.899,34.9,172.8,34.9
-        s118-11.699,172.8-34.9c52.9-22.4,100.3-54.299,141-95.1c40.7-40.699,72.7-88.199,95.101-141
-        c23.199-54.801,34.899-112.9,34.899-172.801c0-59.899-11.7-118-34.899-172.799
-        c-22.4-52.9-54.301-100.3-95.101-141c-40.7-40.7-88.2-72.7-141-95.1c-7.5-3.2-15.1-6.1-22.8-8.9
-        v153.5c23.4,13.3,45.2,29.9,64.8,49.5c57.4,57.4,89,133.7,89,214.799c0,81.102-31.6,157.4-89,214.801
-        c-57.399,57.4-133.7,89-214.8,89s-157.4-31.6-214.8-89c-57.4-57.4-89-133.699-89-214.801
-        c0-81.099,31.6-157.399,89-214.799c19.6-19.6,41.399-36.2,64.8-49.5V90.9
-        c-7.6,2.8-15.2,5.7-22.8,8.9c-52.9,22.4-100.3,54.3-141,95.1c-40.7,40.7-72.7,88.2-95.1,141
-        c-23.2,54.8-34.9,112.9-34.9,172.799c0,59.9,11.7,118,34.9,172.801
-        C89.75,734.301,121.75,781.801,162.45,822.5z"/>
-        <path class="icon-shape" d="M476.25,511.801c38.7,0,70-31.301,70-70V213V70.4V70c0-38.7-31.3-70-70-70
-        s-70,31.3-70,70v0.4V213v228.9C406.25,480.5,437.55,511.801,476.25,511.801z"/>
-      </svg>
-      <span class="nav-wordmark">Power<span>-On</span> Media Group</span>
+    <a class="brand" href="#top" aria-label="Power-On Media Group home">
+      <svg viewBox="0 0 952.5 952.5" aria-hidden="true"><path class="icon-shape" d="M162.45,822.5c40.7,40.699,88.2,72.699,141,95.1c54.8,23.201,112.899,34.9,172.8,34.9s118-11.699,172.8-34.9c52.9-22.4,100.3-54.299,141-95.1c40.7-40.699,72.7-88.199,95.101-141c23.199-54.801,34.899-112.9,34.899-172.801c0-59.899-11.7-118-34.899-172.799c-22.4-52.9-54.301-100.3-95.101-141c-40.7-40.7-88.2-72.7-141-95.1c-7.5-3.2-15.1-6.1-22.8-8.9v153.5c23.4,13.3,45.2,29.9,64.8,49.5c57.4,57.4,89,133.7,89,214.799c0,81.102-31.6,157.4-89,214.801c-57.399,57.4-133.7,89-214.8,89s-157.4-31.6-214.8-89c-57.4-57.4-89-133.699-89-214.801c0-81.099,31.6-157.399,89-214.799c19.6-19.6,41.399-36.2,64.8-49.5V90.9c-7.6,2.8-15.2,5.7-22.8,8.9c-52.9,22.4-100.3,54.3-141,95.1c-40.7,40.7-72.7,88.2-95.1,141c-23.2,54.8-34.9,112.9-34.9,172.799c0,59.9,11.7,118,34.9,172.801C89.75,734.301,121.75,781.801,162.45,822.5z"/><path class="icon-shape" d="M476.25,511.801c38.7,0,70-31.301,70-70V213V70.4V70c0-38.7-31.3-70-70-70s-70,31.3-70,70v0.4V213v228.9C406.25,480.5,437.55,511.801,476.25,511.801z"/></svg>
+      <span class="wordmark">Power<span>-On</span> Media</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#how">How It Works</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#system">System</a></li><li><a href="#work">Work</a></li><li><a href="#offers">Offers</a></li><li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="nav-cta" href="#contact">Start a Project</a>
+    <a class="nav-cta" href="#contact">Bring the Messy Idea</a>
   </nav>
 
-  <!-- HERO -->
-  <div id="top" class="hero">
-    <div class="hero-badge">AI-Native Builder — Southern California</div>
-
-    <div class="logo-wrap">
-      <svg class="pulse-rings" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-        <circle cx="50" cy="50" r="28"></circle>
-        <circle cx="50" cy="50" r="28"></circle>
-      </svg>
-      <svg class="icon-svg" viewBox="0 0 952.5 952.5">
-        <path class="icon-shape" d="M162.45,822.5c40.7,40.699,88.2,72.699,141,95.1c54.8,23.201,112.899,34.9,172.8,34.9
-        s118-11.699,172.8-34.9c52.9-22.4,100.3-54.299,141-95.1c40.7-40.699,72.7-88.199,95.101-141
-        c23.199-54.801,34.899-112.9,34.899-172.801c0-59.899-11.7-118-34.899-172.799
-        c-22.4-52.9-54.301-100.3-95.101-141c-40.7-40.7-88.2-72.7-141-95.1c-7.5-3.2-15.1-6.1-22.8-8.9
-        v153.5c23.4,13.3,45.2,29.9,64.8,49.5c57.4,57.4,89,133.7,89,214.799c0,81.102-31.6,157.4-89,214.801
-        c-57.399,57.4-133.7,89-214.8,89s-157.4-31.6-214.8-89c-57.4-57.4-89-133.699-89-214.801
-        c0-81.099,31.6-157.399,89-214.799c19.6-19.6,41.399-36.2,64.8-49.5V90.9
-        c-7.6,2.8-15.2,5.7-22.8,8.9c-52.9,22.4-100.3,54.3-141,95.1c-40.7,40.7-72.7,88.2-95.1,141
-        c-23.2,54.8-34.9,112.9-34.9,172.799c0,59.9,11.7,118,34.9,172.801
-        C89.75,734.301,121.75,781.801,162.45,822.5z"/>
-        <path class="icon-shape" d="M476.25,511.801c38.7,0,70-31.301,70-70V213V70.4V70c0-38.7-31.3-70-70-70
-        s-70,31.3-70,70v0.4V213v228.9C406.25,480.5,437.55,511.801,476.25,511.801z"/>
-      </svg>
-    </div>
-
-    <h1 class="hero-headline">
-      I build <span class="accent">the thing.</span><br>You run the business.
-    </h1>
-    <p class="hero-sub">
-      Workflows. Websites. Web apps. Native apps.<br>
-      One person. AI-native. Team-scale output.
-    </p>
-    <div class="hero-ctas">
-      <a class="btn-primary" href="#contact">Start a Project</a>
-      <a class="btn-ghost" href="#work">See the Work</a>
-    </div>
-
-
-  </div>
-
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="section-label">What I Build</div>
-    <h2 class="section-title">AI does the heavy lifting.<br>You get the result.</h2>
-    <p class="section-body">
-      From a simple landing page to a full iOS app — built faster, smarter, and at a fraction of what a traditional agency charges. The AI handles the grunt work. You get a finished product.
-    </p>
-
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">⚡</div>
-        <div class="service-name">AI Workflows & Automation</div>
-        <div class="service-desc">Custom pipelines that replace manual, repetitive work. Content engines, lead systems, data processing, agent-powered operations — built and running in days.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌐</div>
-        <div class="service-name">Websites & Landing Pages</div>
-        <div class="service-desc">Fast, high-converting sites with real design. Authority sites, product pages, portfolio sites, local business — built to rank, convert, and impress.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🖥️</div>
-        <div class="service-name">Web Apps & SaaS Tools</div>
-        <div class="service-desc">Full-stack web apps with auth, billing, dashboards, APIs. From proof-of-concept to deployed product with Stripe, database, and a real UI.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📱</div>
-        <div class="service-name">Native Apps (iOS)</div>
-        <div class="service-desc">SwiftUI iOS apps for the App Store. Native performance, local-first or cloud-connected, built with modern Apple standards and shipped to production.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📡</div>
-        <div class="service-name">Live Streaming & FAST Channels</div>
-        <div class="service-desc">24/7 live video infrastructure, playlist engines, FAST channel operations. Always-on streams for media companies, resorts, and brands.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🤖</div>
-        <div class="service-name">AI Strategy & Implementation</div>
-        <div class="service-desc">Not sure where AI fits in your business? I'll find the leverage points, design the solution, and build it — or run it for you as a managed service.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section id="work">
-    <div class="section-label">Selected Work</div>
-    <h2 class="section-title">Built, shipped, running.</h2>
-    <p class="section-body">
-      Real products. Real clients. Everything below was built by one person using AI tools — from concept to live.
-    </p>
-
-    <div class="work-grid">
-      <a class="work-card" href="https://www.youtube.com/watch?v=hm9iAviOZ20" target="_blank" rel="noopener">
-        <div class="work-card-top">
-          <span class="work-type">Live Streaming</span>
-          <span class="work-arrow">↗</span>
+  <main id="top">
+    <header class="hero">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">AI-native skunkworks studio · Southern California</div>
+        <h1>Ship the thing everyone else is still meeting about.</h1>
+        <p class="hero-sub">Power-On Media Group builds websites, apps, workflows, live channels, and AI-powered products for companies that need working systems — not agency theater.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">Let’s ship the thing →</a>
+          <a class="btn-ghost" href="#work">See shipped work</a>
         </div>
-        <div class="work-name">Surfline Top Cams</div>
-        <div class="work-desc">24/7 YouTube FAST channel for Surfline. Custom playlist engine, scoring algorithm, camera restriction system, and Fire TV app POC.</div>
-        <div class="work-url">youtube.com/watch?v=hm9iAviOZ20</div>
-        <div class="work-tags">
-          <span class="work-tag">FAST Channel</span>
-          <span class="work-tag">Python</span>
-          <span class="work-tag">24/7 Live</span>
-          <span class="work-tag">Fire TV</span>
-        </div>
-      </a>
-
-      <a class="work-card" href="https://www.awwthatface.com/" target="_blank" rel="noopener">
-        <div class="work-card-top">
-          <span class="work-type">iOS App</span>
-          <span class="work-arrow">↗</span>
-        </div>
-        <div class="work-name">Aww That Face</div>
-        <div class="work-desc">Daily pet photo journal app. SwiftUI, SwiftData, fully local — no backend. Submitted to the App Store. Built to ship.</div>
-        <div class="work-url">awwthatface.com</div>
-        <div class="work-tags">
-          <span class="work-tag">SwiftUI</span>
-          <span class="work-tag">iOS</span>
-          <span class="work-tag">App Store</span>
-        </div>
-      </a>
-
-      <a class="work-card" href="https://poweronmedia.gumroad.com/l/weddingspeechkit" target="_blank" rel="noopener">
-        <div class="work-card-top">
-          <span class="work-type">Digital Product</span>
-          <span class="work-arrow">↗</span>
-        </div>
-        <div class="work-name">Wedding Speech Emergency Kit</div>
-        <div class="work-desc">12 fill-in-the-blank speech frameworks for every wedding role. Includes story-mining worksheet, AI prompt kit, and delivery cheat sheet. One-time purchase, instant download.</div>
-        <div class="work-url">poweronmedia.gumroad.com</div>
-        <div class="work-tags">
-          <span class="work-tag">Gumroad</span>
-          <span class="work-tag">Digital Download</span>
-          <span class="work-tag">AI-Assisted</span>
-        </div>
-      </a>
-
-      <div class="work-card">
-        <div class="work-card-top">
-          <span class="work-type">AI Workflow</span>
-          <span class="work-arrow">↗</span>
-        </div>
-        <div class="work-name">Auto Feed Engine</div>
-        <div class="work-desc">AI-powered social media automation platform. Content strategy, creation, scheduling, and analytics across all major platforms. Multi-brand support.</div>
-        <div class="work-tags">
-          <span class="work-tag">AI Pipeline</span>
-          <span class="work-tag">Social Automation</span>
-          <span class="work-tag">Multi-Brand</span>
+        <div class="proof-strip" aria-label="Proof points">
+          <div class="proof"><b>24/7</b><span>live channel infrastructure</span></div>
+          <div class="proof"><b>iOS</b><span>native app shipped</span></div>
+          <div class="proof"><b>AI</b><span>agent-powered delivery stack</span></div>
         </div>
       </div>
 
-      <a class="work-card" href="https://aduhomeconstruction.com/" target="_blank" rel="noopener">
-        <div class="work-card-top">
-          <span class="work-type">Authority Site</span>
-          <span class="work-arrow">↗</span>
+      <aside class="command-deck reveal" aria-label="AI operating system visualization">
+        <div class="deck-top"><div class="window-dots"><i></i><i></i><i></i></div><div class="deck-label">Power-On OS / active</div></div>
+        <div class="agent-list">
+          <div class="agent-row"><div class="agent-name">Sam</div><div class="agent-role">ops, memory, orchestration</div><div class="status">live</div></div>
+          <div class="agent-row"><div class="agent-name">Brian</div><div class="agent-role">code, builds, deployment</div><div class="status">build</div></div>
+          <div class="agent-row"><div class="agent-name">Gem</div><div class="agent-role">strategy, copy, creative</div><div class="status">think</div></div>
+          <div class="agent-row"><div class="agent-name">Gavin</div><div class="agent-role">research, market signals</div><div class="status">scan</div></div>
+          <div class="agent-row"><div class="agent-name">Travis</div><div class="agent-role">QA, testing, polish</div><div class="status">check</div></div>
         </div>
-        <div class="work-name">ADU Home Construction</div>
-        <div class="work-desc">Lead generation authority site for the California ADU market. SEO content pipeline powered by AI image generation and video production. Ebook lead capture.</div>
-        <div class="work-url">aduhomeconstruction.com</div>
-        <div class="work-tags">
-          <span class="work-tag">Next.js</span>
-          <span class="work-tag">SEO</span>
-          <span class="work-tag">AI Content</span>
-          <span class="work-tag">Lead Gen</span>
-        </div>
-      </a>
+        <div class="orb"><svg viewBox="0 0 952.5 952.5" aria-hidden="true"><path class="icon-shape" d="M162.45,822.5c40.7,40.699,88.2,72.699,141,95.1c54.8,23.201,112.899,34.9,172.8,34.9s118-11.699,172.8-34.9c52.9-22.4,100.3-54.299,141-95.1c40.7-40.699,72.7-88.199,95.101-141c23.199-54.801,34.899-112.9,34.899-172.801c0-59.899-11.7-118-34.899-172.799c-22.4-52.9-54.301-100.3-95.101-141c-40.7-40.7-88.2-72.7-141-95.1c-7.5-3.2-15.1-6.1-22.8-8.9v153.5c23.4,13.3,45.2,29.9,64.8,49.5c57.4,57.4,89,133.7,89,214.799c0,81.102-31.6,157.4-89,214.801c-57.399,57.4-133.7,89-214.8,89s-157.4-31.6-214.8-89c-57.4-57.4-89-133.699-89-214.801c0-81.099,31.6-157.399,89-214.799c19.6-19.6,41.399-36.2,64.8-49.5V90.9c-7.6,2.8-15.2,5.7-22.8,8.9c-52.9,22.4-100.3,54.3-141,95.1c-40.7,40.7-72.7,88.2-95.1,141c-23.2,54.8-34.9,112.9-34.9,172.799c0,59.9,11.7,118,34.9,172.801C89.75,734.301,121.75,781.801,162.45,822.5z"/><path class="icon-shape" d="M476.25,511.801c38.7,0,70-31.301,70-70V213V70.4V70c0-38.7-31.3-70-70-70s-70,31.3-70,70v0.4V213v228.9C406.25,480.5,437.55,511.801,476.25,511.801z"/></svg></div>
+        <div class="ticker"><span>strategy → creative direction → agent delegation → prototype → code → QA → launch → iterate → </span></div>
+      </aside>
+    </header>
 
-      <a class="work-card" href="https://saddlebackconstruction.com/" target="_blank" rel="noopener">
-        <div class="work-card-top">
-          <span class="work-type">Website</span>
-          <span class="work-arrow">↗</span>
-        </div>
-        <div class="work-name">Saddleback Construction</div>
-        <div class="work-desc">Website for an ADU, home remodeling, and general contracting company in Temecula, CA. Built to convert local leads and establish credibility.</div>
-        <div class="work-url">saddlebackconstruction.com</div>
-        <div class="work-tags">
-          <span class="work-tag">Web Design</span>
-          <span class="work-tag">Local Business</span>
-          <span class="work-tag">Lead Gen</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="how">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">Fast, lean,<br>and transparent.</h2>
-
-    <div class="how-grid">
-      <div class="how-steps">
-        <div class="how-step">
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <div class="step-title">Tell me what you need</div>
-            <div class="step-desc">Fill out the contact form. No brief required — just explain the problem in plain English. A 5-minute conversation is usually enough to scope it.</div>
-          </div>
-        </div>
-        <div class="how-step">
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <div class="step-title">I scope it and quote it</div>
-            <div class="step-desc">You get a clear scope and flat-rate price. No hourly surprises, no runaway budgets. Know exactly what you're getting before we start.</div>
-          </div>
-        </div>
-        <div class="how-step">
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <div class="step-title">I build it — fast</div>
-            <div class="step-desc">AI tools compress timelines dramatically. What takes a traditional agency 6 weeks, I ship in days. You get updates the whole time.</div>
-          </div>
-        </div>
-        <div class="how-step">
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <div class="step-title">You get something that works</div>
-            <div class="step-desc">Deployed, live, and handed over with documentation. Not a mockup. Not a prototype. A working product you own.</div>
-          </div>
-        </div>
+    <section class="section manifesto reveal" id="manifesto">
+      <div><div class="section-kicker">Point of view</div><div class="big-quote">One senior operator. An AI agent stack. No handoff chaos.</div></div>
+      <div class="manifesto-card"><p class="lead">The old agency model is bloated: account managers, vague timelines, six-week decks, and invoices that punish momentum. Power-On is built for the new reality — a founder-led studio using AI as leverage to move from messy idea to shipped product fast.</p>
+        <div class="contrast"><div class="contrast-card"><h3>Traditional agency</h3><ul><li>Discovery theater before progress</li><li>Layered teams and slow handoffs</li><li>Pretty comps that still need building</li><li>Hourly ambiguity and scope fog</li></ul></div><div class="contrast-card good"><h3>Power-On</h3><ul><li>Direct access to the builder</li><li>AI-assisted strategy, design, code, and ops</li><li>Working systems, not just mockups</li><li>Flat scopes, fast feedback, real ownership</li></ul></div></div>
       </div>
+    </section>
 
-      <div class="how-aside">
-        <div class="aside-label">Tools I use</div>
-        <ul class="stack-list">
-          <li>Claude (Anthropic) — reasoning + code gen</li>
-          <li>GPT-4o (OpenAI) — content + analysis</li>
-          <li>Cursor + Codex — AI-native coding</li>
-          <li>Flux / Replicate — AI image generation</li>
-          <li>Next.js + React + Tailwind</li>
-          <li>SwiftUI — native iOS</li>
-          <li>Python / FastAPI / Node.js</li>
-          <li>N8N — workflow automation</li>
-          <li>Cloudflare + Vercel + Railway</li>
-          <li>GitHub — version control, CI/CD</li>
-          <li>Stripe — billing + payments</li>
-        </ul>
-
-        <div class="aside-label" style="margin-top:32px;">What it means for you</div>
-        <ul class="stack-list">
-          <li>Faster delivery — days not months</li>
-          <li>Lower cost — no agency overhead</li>
-          <li>One point of contact — no handoff chaos</li>
-          <li>You own everything — code, IP, accounts</li>
-        </ul>
+    <section class="section reveal" id="system">
+      <div class="section-kicker">What gets built</div><h2>The studio is a system, not a services menu.</h2><p class="lead">I connect strategy, creative, automation, code, video, and launch into one tight loop — then use AI agents to compress the timeline.</p>
+      <div class="system-map">
+        <div class="node feature wide"><div class="node-num">01</div><h3>Strategy</h3><p>Turn the fuzzy business problem into a sharp build plan.</p></div>
+        <div class="node"><div class="node-num">02</div><h3>Design</h3><p>Premium web direction, product UI, landing pages, briefs.</p></div>
+        <div class="node tall"><div class="node-num">03</div><h3>AI Agents</h3><p>Research, content, QA, support ops, internal workflows, automations.</p></div>
+        <div class="node"><div class="node-num">04</div><h3>Code</h3><p>Web apps, dashboards, APIs, Stripe, native iOS, internal tools.</p></div>
+        <div class="node"><div class="node-num">05</div><h3>Media</h3><p>Live streams, FAST channels, video systems, AI content engines.</p></div>
+        <div class="node wide feature"><div class="node-num">06</div><h3>Launch</h3><p>Deploy, document, hand off, measure, and keep moving.</p></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-label">Start a Project</div>
-    <h2 class="section-title">Let's build<br>something.</h2>
-
-    <div class="contact-wrap">
-      <div class="contact-info">
-        <p class="contact-blurb">
-          Tell me what you're trying to build or what problem you're trying to solve. I respond within 24 hours. No agencies. No account managers. Just me.
-        </p>
-        <div class="contact-detail">
-          <div class="contact-item">
-            <span class="contact-item-label">Email</span>
-            <span class="contact-item-val">
-              <a href="mailto:poweronmediagroup@gmail.com">poweronmediagroup@gmail.com</a>
-            </span>
-          </div>
-          <div class="contact-item">
-            <span class="contact-item-label">Location</span>
-            <span class="contact-item-val">Huntington Beach, CA</span>
-          </div>
-          <div class="contact-item">
-            <span class="contact-item-label">Response</span>
-            <span class="contact-item-val">Within 24 hours</span>
-          </div>
-        </div>
+    <section class="section reveal" id="work">
+      <div class="section-kicker">Selected work</div><h2>Proof beats promises.</h2><p class="lead">Real builds across media, apps, automation, ecommerce, and authority sites.</p>
+      <div class="work-list">
+        <a class="case" href="https://www.youtube.com/watch?v=hm9iAviOZ20" target="_blank" rel="noopener"><div class="case-visual"><div class="mock-title">Surfline Top Cams</div><div class="mock-meta"><span class="pill">24/7 Live</span><span class="pill">FAST</span><span class="pill">Python</span><span class="pill">Fire TV POC</span></div></div><div class="case-copy"><div><div class="case-type">Live streaming infrastructure</div><h3>Always-on surf media system.</h3><p>Custom playlist engine, scoring logic, restriction rules, and live channel operations for Surfline’s Top Cams concept.</p></div><div class="case-facts"><div class="fact"><b>24/7</b><span>stream</span></div><div class="fact"><b>POC</b><span>to platform</span></div><div class="fact"><b>Media</b><span>ops</span></div></div></div></a>
+        <a class="case" href="https://www.awwthatface.com/" target="_blank" rel="noopener"><div class="case-visual"><div class="mock-title">Aww That Face</div><div class="mock-meta"><span class="pill">SwiftUI</span><span class="pill">SwiftData</span><span class="pill">iOS</span><span class="pill">Local-first</span></div></div><div class="case-copy"><div><div class="case-type">Native app</div><h3>A pet journal built to ship.</h3><p>Daily pet photo journal for iPhone with native Apple patterns, local-first storage, and App Store-ready product execution.</p></div><div class="case-facts"><div class="fact"><b>iOS</b><span>native</span></div><div class="fact"><b>0</b><span>backend drag</span></div><div class="fact"><b>App</b><span>store path</span></div></div></div></a>
+        <a class="case" href="https://aduhomeconstruction.com/" target="_blank" rel="noopener"><div class="case-visual"><div class="mock-title">ADU Home Construction</div><div class="mock-meta"><span class="pill">Authority Site</span><span class="pill">SEO</span><span class="pill">AI Content</span><span class="pill">Lead Gen</span></div></div><div class="case-copy"><div><div class="case-type">Authority website</div><h3>Lead capture with content velocity.</h3><p>California ADU authority site with SEO content pipeline, AI creative assets, and ebook-led demand capture.</p></div><div class="case-facts"><div class="fact"><b>SEO</b><span>engine</span></div><div class="fact"><b>Lead</b><span>capture</span></div><div class="fact"><b>AI</b><span>pipeline</span></div></div></div></a>
       </div>
+    </section>
 
-      <div>
-        <form id="contact-form" action="https://formspree.io/f/mpqynojk" method="POST">
-          <div class="form-row">
-            <div class="field">
-              <label for="fname">First name</label>
-              <input type="text" id="fname" name="first_name" required placeholder="Marc" />
-            </div>
-            <div class="field">
-              <label for="lname">Last name</label>
-              <input type="text" id="lname" name="last_name" placeholder="Beaty" />
-            </div>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required placeholder="you@company.com" />
-          </div>
-          <div class="field">
-            <label for="project">What do you need?</label>
-            <select id="project" name="project_type">
-              <option value="" disabled selected>Select a category</option>
-              <option value="ai-workflow">AI Workflow / Automation</option>
-              <option value="website">Website / Landing Page</option>
-              <option value="webapp">Web App / SaaS</option>
-              <option value="ios">iOS App</option>
-              <option value="streaming">Live Streaming / FAST Channel</option>
-              <option value="strategy">AI Strategy / Consulting</option>
-              <option value="other">Other / Not Sure Yet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="message">Tell me more</label>
-            <textarea id="message" name="message" required placeholder="What are you trying to build or solve? Rough timeline? Budget?"></textarea>
-          </div>
-          <button type="submit" class="form-submit">Send It →</button>
-          <p class="form-note">No spam. No CRM drip campaigns. Just a reply from Marc.</p>
-        </form>
-
-        <div class="form-success" id="form-success">
-          <strong>Message received.</strong>
-          <p>I'll get back to you within 24 hours. Talk soon.</p>
-        </div>
+    <section class="section reveal" id="offers">
+      <div class="section-kicker">Engagement lanes</div><h2>Bring the hard, weird, valuable thing.</h2>
+      <div class="offers">
+        <div class="offer"><h3>24/7 Channel Build</h3><p>Live and linear streaming systems for brands, media companies, resorts, and communities.</p><ul><li>Playlist logic and operations</li><li>Camera/feed orchestration</li><li>YouTube, FAST, app POCs</li></ul></div>
+        <div class="offer"><h3>AI Product Sprint</h3><p>Turn a product idea into a working prototype or launchable v1 in days/weeks, not quarters.</p><ul><li>Landing page + offer</li><li>App/web prototype</li><li>Payments, data, workflows</li></ul></div>
+        <div class="offer"><h3>Automation Ops Stack</h3><p>Replace repetitive work with custom AI-assisted workflows and internal tools.</p><ul><li>Research and content engines</li><li>Lead systems and reporting</li><li>Agent-assisted operations</li></ul></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <span>© 2026 Power-On Media Group, LLC — Huntington Beach, CA</span>
-    <a href="mailto:poweronmediagroup@gmail.com">poweronmediagroup@gmail.com</a>
-  </footer>
+    <section class="section reveal" id="process">
+      <div class="section-kicker">How it works</div><h2>Fast, lean, and unnervingly practical.</h2>
+      <div class="process"><div class="step"><b>01</b><h3>Dump the idea</h3><p>No perfect brief needed. Send the messy version and the outcome you want.</p></div><div class="step"><b>02</b><h3>Scope the strike</h3><p>I turn it into a clear plan, flat price, timeline, and first build target.</p></div><div class="step"><b>03</b><h3>Build in public</h3><p>You see progress quickly: prototypes, pages, systems, demos, real artifacts.</p></div><div class="step"><b>04</b><h3>Launch clean</h3><p>Deployed, documented, handed over — with the next move already obvious.</p></div></div>
+    </section>
+
+    <section class="section contact reveal" id="contact">
+      <div><div class="section-kicker">Start</div><h2>Bring me the messy idea.</h2><p class="lead">If it needs strategy, design, code, automation, media infrastructure, or an AI-native build plan — send it. I’ll tell you what I’d ship first.</p></div>
+      <div class="contact-panel"><form id="contact-form" action="https://formspree.io/f/mpqynojk" method="POST"><div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required /></div><div class="field"><label for="email">Email</label><input id="email" type="email" name="email" autocomplete="email" required /></div><div class="field"><label for="deadline">Deadline / urgency</label><select id="deadline" name="deadline"><option>ASAP — need momentum now</option><option>2–4 weeks</option><option>This quarter</option><option>Just exploring</option></select></div><div class="field"><label for="message">What are you trying to build?</label><textarea id="message" name="message" placeholder="Tell me the messy version. What exists now, what needs to happen, and what would make this a win?" required></textarea></div><button class="form-submit" type="submit">Send the signal →</button><p class="note">No spam. No drip campaign. Just a direct reply from Marc.</p></form><div class="success" id="form-success"><strong>Signal received.</strong><br/>Marc will get back to you directly.</div></div>
+    </section>
+  </main>
+
+  <footer><div>Power-On Media Group · AI-native skunkworks studio</div><div>Power on. Stay live.</div></footer>
 
   <script>
-    // form AJAX submit (works with Formspree)
-    const form = document.getElementById('contact-form');
-    const success = document.getElementById('form-success');
+    const glow=document.getElementById('cursorGlow');
+    window.addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});
 
-    form.addEventListener('submit', async (e) => {
+    const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.13});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    document.querySelectorAll('.node').forEach(node=>{
+      node.addEventListener('pointermove',e=>{const r=node.getBoundingClientRect();node.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');node.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
+    });
+
+    const form=document.getElementById('contact-form');
+    const success=document.getElementById('form-success');
+    form.addEventListener('submit',async e=>{
       e.preventDefault();
-      const data = new FormData(form);
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.style.display = 'none';
-          success.classList.add('visible');
-        } else {
-          alert('Something went wrong. Email us directly at poweronmediagroup@gmail.com');
-        }
-      } catch(err) {
-        alert('Something went wrong. Email us directly at poweronmediagroup@gmail.com');
-      }
+      try{const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(res.ok){form.style.display='none';success.classList.add('visible')}else{form.submit()}}catch(err){form.submit()}
     });
   </script>
-
 </body>
 </html>
